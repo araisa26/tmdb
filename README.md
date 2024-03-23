@@ -1,16 +1,20 @@
-# themoviedb
+1 Экран авторизации:
+- Проверка заполнения логина и пароля, если поля пустые выводится ошибка на экране;
+- Обработка ошибки на доменном уровне при неверной авторизации;
+- Кнопка сброса логина и пароля;
+- Замена кнопки на loader для предотвращения повторных запросов авторизации;
+- При успешной авторизации хранение sessionId и accountId в SecureStorage и переход на Главный экран (MainScreen);
 
-A new Flutter project.
+2 Главный экран:
+- При переходе на экран вызывается метод для установления локали, который хранится в didChangeDependencies. Далее метод в реализации загружает список фильмов из сети, отображаемых в ListViewBuilder;
+- Пагинация списка фильмов, с проверкой на повторные запросы и totalPage;
+- Поиск фильмов по названию, результат поиска так же имеет пагинацию;
+- Переход на Экран детального описания фильма; 
+- Переход на Экран авторизации с удалением sessionId и accountId из SecureStorage;
 
-## Getting Started
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+3 Экран детального описания фильма:
+- Детальное описание фильма загружается так же из сети после установления локали;
+- Запуск трейлера;
+- Добавление фильма в Избранное с post запросом на сервер;
+- Переход назад на экран списка фильмов;
