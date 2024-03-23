@@ -28,7 +28,7 @@ class MainScreenWidget extends StatelessWidget {
         ),
       ),
       body: IndexedStack(index: model.selectedTab, children: [
-        ScreenFactory.makeMovieList(),
+        ScreenFactory().makeMovieList(),
         ScreenFactory.makeFavoriteScreen()
       ]),
       bottomNavigationBar: BottomNavigationBar(

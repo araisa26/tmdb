@@ -11,8 +11,8 @@ abstract class MainNavigationRoutesName {
 
 class MainNavigation {
   Map<String, WidgetBuilder> routes = {
-    MainNavigationRoutesName.loaderWidget: (_) => ScreenFactory.makeloader(),
-    MainNavigationRoutesName.auth: (_) => ScreenFactory.makeAuth(),
+    MainNavigationRoutesName.loaderWidget: (_) => ScreenFactory().makeloader(),
+    MainNavigationRoutesName.auth: (_) => ScreenFactory().makeAuth(),
     MainNavigationRoutesName.mainScreen: (_) => ScreenFactory.makeMainScreen(),
   };
 

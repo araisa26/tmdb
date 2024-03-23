@@ -3,13 +3,15 @@ import 'package:themoviedb/configuration/configuration.dart';
 import 'package:themoviedb/domain/api_client/account_api_client.dart';
 import 'package:themoviedb/domain/api_client/movie_api_client.dart';
 import 'package:themoviedb/domain/data_providers/session_data_provider.dart';
+import 'package:themoviedb/domain/entity/movie_response.dart';
 
 abstract class MovieServices {
-  static Future getPopularMovies(page, locale) async {
+  static Future<PopularMovieResponse> getPopularMovies(page, locale) async {
     return await MovieApiClient.getPopulatMovie(page, locale);
   }
 
-  static Future searchPopualrMovies(searchText, page, locale) async {
+  static Future<PopularMovieResponse> searchPopualrMovies(
+      searchText, page, locale) async {
     return await MovieApiClient.searchPopularMovies(searchText, locale, page);
   }
 

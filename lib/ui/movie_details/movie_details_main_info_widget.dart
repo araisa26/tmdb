@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:themoviedb/configuration/configuration.dart';
 import 'package:themoviedb/domain/api_client/image_loader.dart';
 import 'package:themoviedb/services/date_services.dart';
-import 'package:themoviedb/ui/elements/radial_percent_widget.dart';
+import 'package:themoviedb/ui/movie_details/elements/radial_percent_widget.dart';
 import 'package:themoviedb/ui/movie_details/movie_details_model.dart';
 import 'package:themoviedb/ui/navigation/main_navigation.dart';
 

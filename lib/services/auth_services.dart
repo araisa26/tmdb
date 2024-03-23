@@ -8,10 +8,9 @@ abstract class AuthServices {
     return await SessionDataProvider.getSessionId() != null;
   }
 
-  static Future<void> auth(
-      TextEditingController login, TextEditingController password) async {
+  static Future<void> auth(String login, String password) async {
     await SessionDataProvider.setSessonId(
-        await AuthApiClient.makeSessionId(login.text, password.text));
+        await AuthApiClient.makeSessionId(login, password));
     await SessionDataProvider.setAccountId(await AuthApiClient.getAccountId(
         await SessionDataProvider.getSessionId()));
   }
