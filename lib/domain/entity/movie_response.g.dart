@@ -13,8 +13,8 @@ PopularMovieResponse _$PopularMovieResponseFromJson(
       movies: (json['results'] as List<dynamic>)
           .map((e) => Movie.fromJson(e as Map<String, dynamic>))
           .toList(),
-      total_pages: json['total_pages'] as int,
-      total_results: json['total_results'] as int,
+      totalPages: json['total_pages'] as int,
+      totalResults: json['total_results'] as int,
     );
 
 Map<String, dynamic> _$PopularMovieResponseToJson(
@@ -22,6 +22,6 @@ Map<String, dynamic> _$PopularMovieResponseToJson(
     <String, dynamic>{
       'page': instance.page,
       'results': instance.movies.map((e) => e.toJson()).toList(),
-      'total_pages': instance.total_pages,
-      'total_results': instance.total_results,
+      'total_pages': instance.totalPages,
+      'total_results': instance.totalResults,
     };

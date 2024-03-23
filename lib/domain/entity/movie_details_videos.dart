@@ -26,7 +26,7 @@ class MovieVideoResult {
   final int size;
   final String type;
   final bool official;
-  final String published_at;
+  final String publishedAt;
   final String id;
   MovieVideoResult({
     required this.iso639,
@@ -37,7 +37,7 @@ class MovieVideoResult {
     required this.size,
     required this.type,
     required this.official,
-    required this.published_at,
+    required this.publishedAt,
     required this.id,
   });
   factory MovieVideoResult.fromJson(Map<String, dynamic> json) =>

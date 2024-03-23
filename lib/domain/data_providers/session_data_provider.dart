@@ -5,11 +5,11 @@ abstract class KeySession {
   static const accountId = 'account-id';
 }
 
-class SessionDataProvider {
-  final secirutyStorage = FlutterSecureStorage();
-  Future<String?> getSessionId() async =>
+abstract class SessionDataProvider {
+  static const secirutyStorage = FlutterSecureStorage();
+  static Future<String?> getSessionId() async =>
       await secirutyStorage.read(key: KeySession.sessionId);
-  Future<void> setSessonId(String? value) {
+  static Future<void> setSessonId(String? value) {
     if (value != null) {
       return secirutyStorage.write(key: KeySession.sessionId, value: value);
     } else {
@@ -17,9 +17,9 @@ class SessionDataProvider {
     }
   }
 
-  Future<String?> getAccountId() async =>
+  static Future<String?> getAccountId() async =>
       await secirutyStorage.read(key: KeySession.accountId);
-  Future<void> setAccountId(int? value) {
+  static Future<void> setAccountId(int? value) {
     if (value != null) {
       return secirutyStorage.write(
           key: KeySession.accountId, value: value.toString());

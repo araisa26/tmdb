@@ -35,7 +35,7 @@ class _MovieTrailerWidgetState extends State<MovieTrailerWidget> {
       builder: (context, player) {
         return Scaffold(
           appBar: AppBar(
-            title: Text(
+            title: const Text(
               'Трейлер',
               style: TextStyle(color: Colors.white),
             ),

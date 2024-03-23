@@ -10,13 +10,13 @@ class PopularMovieResponse {
     name: 'results',
   )
   List<Movie> movies;
-  int total_pages;
-  int total_results;
+  int totalPages;
+  int totalResults;
   PopularMovieResponse(
       {required this.page,
       required this.movies,
-      required this.total_pages,
-      required this.total_results});
+      required this.totalPages,
+      required this.totalResults});
 
   factory PopularMovieResponse.fromJson(Map<String, dynamic> json) =>
       _$PopularMovieResponseFromJson(json);

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:themoviedb/domain/api_client.dart';
-import 'package:themoviedb/library/provider.dart';
+import 'package:provider/provider.dart';
+import 'package:themoviedb/configuration/configuration.dart';
+import 'package:themoviedb/domain/api_client/image_loader.dart';
 import 'package:themoviedb/ui/movie_details/movie_details_model.dart';
 
 class MovieDetailsMainScreenCastWidget extends StatelessWidget {
@@ -8,18 +9,14 @@ class MovieDetailsMainScreenCastWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final model = NotifierProvider.watch<MovieDetailsModel>(context);
-    final cast = model?.movieDetails?.credits.cast;
-    final imgUrlPosterPath =
-        'https://media.themoviedb.org/t/p/w120_and_h133_face';
-
+    final model = context.watch<MovieDetailsModel>();
     return ColoredBox(
       color: Colors.white,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Padding(
-            padding: const EdgeInsets.all(10),
+          const Padding(
+            padding: EdgeInsets.all(10),
             child: Text(
               'В главных ролях',
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
@@ -29,7 +26,7 @@ class MovieDetailsMainScreenCastWidget extends StatelessWidget {
             height: 300,
             child: Scrollbar(
               child: ListView.builder(
-                itemCount: cast?.length,
+                itemCount: model.movieDetails?.credits.cast.length,
                 itemExtent: 120,
                 scrollDirection: Axis.horizontal,
                 itemBuilder: (BuildContext context, int index) {
@@ -56,27 +53,34 @@ class MovieDetailsMainScreenCastWidget extends StatelessWidget {
                           clipBehavior: Clip.hardEdge,
                           child: Column(
                             children: [
-                              cast?[index].profilePath != null
-                                  ? Image.network(ApiClient.imageUrl(
-                                      imgUrlPosterPath,
-                                      cast![index].profilePath!))
-                                  : SizedBox.shrink(),
+                              model.movieDetails?.credits.cast[index]
+                                          .profilePath !=
+                                      null
+                                  ? Image.network(ImageLoader.imageUrl(
+                                      ImageUrl.imgUrlActorPathMovieDetails,
+                                      model.movieDetails!.credits.cast[index]
+                                          .profilePath as String))
+                                  : const SizedBox.shrink(),
                               Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      cast?[index].name ?? '',
+                                      model.movieDetails?.credits.cast[index]
+                                              .name ??
+                                          '',
                                       maxLines: 2,
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                           fontWeight: FontWeight.w800),
                                     ),
-                                    SizedBox(
+                                    const SizedBox(
                                       height: 7,
                                     ),
                                     Text(
-                                      cast?[index].character ?? '',
+                                      model.movieDetails?.credits.cast[index]
+                                              .character ??
+                                          '',
                                       maxLines: 4,
                                     ),
                                   ],
@@ -92,7 +96,7 @@ class MovieDetailsMainScreenCastWidget extends StatelessWidget {
           ),
           TextButton(
               onPressed: () {},
-              child: Text('Полный актёрский и съёмочный состав'))
+              child: const Text('Полный актёрский и съёмочный состав'))
         ],
       ),
     );

@@ -28,7 +28,7 @@ MovieVideoResult _$MovieVideoResultFromJson(Map<String, dynamic> json) =>
       size: json['size'] as int,
       type: json['type'] as String,
       official: json['official'] as bool,
-      published_at: json['published_at'] as String,
+      publishedAt: json['published_at'] as String,
       id: json['id'] as String,
     );
 
@@ -42,6 +42,6 @@ Map<String, dynamic> _$MovieVideoResultToJson(MovieVideoResult instance) =>
       'size': instance.size,
       'type': instance.type,
       'official': instance.official,
-      'published_at': instance.published_at,
+      'published_at': instance.publishedAt,
       'id': instance.id,
     };

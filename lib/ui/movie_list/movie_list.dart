@@ -1,25 +1,35 @@
 import 'package:flutter/material.dart';
-import 'package:themoviedb/domain/api_client.dart';
-import 'package:themoviedb/library/provider.dart';
+import 'package:provider/provider.dart';
+import 'package:themoviedb/configuration/configuration.dart';
+import 'package:themoviedb/domain/api_client/image_loader.dart';
+import 'package:themoviedb/services/date_services.dart';
 import 'package:themoviedb/ui/movie_list/movie_list_model.dart';
 
-class MovieListWidget extends StatelessWidget {
-  const MovieListWidget();
+class MovieListWidget extends StatefulWidget {
+  const MovieListWidget({super.key});
+  @override
+  State<StatefulWidget> createState() => MovieListWidgetState();
+}
+
+class MovieListWidgetState extends State<MovieListWidget> {
+  @override
+  void didChangeDependencies() {
+    context.watch<MovieListModel>().setupLocal(context);
+    super.didChangeDependencies();
+  }
+
   @override
   Widget build(BuildContext context) {
-    final model = NotifierProvider.watch<MovieListModel>(context);
-    if (model == null) return const SizedBox.shrink();
+    final model = context.watch<MovieListModel>();
     return Stack(children: [
       ListView.builder(
         keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
-        padding: EdgeInsets.only(top: 70),
+        padding: const EdgeInsets.only(top: 70),
         itemCount: model.movies.length,
         itemExtent: 163,
         itemBuilder: (BuildContext context, int index) {
           model.showMovieAtindex(index);
           final movie = model.movies[index];
-          String imgUrl = 'https://image.tmdb.org/t/p/w260_and_h390_bestv2';
-          final posterPath = movie.posterPath;
 
           return Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
@@ -44,10 +54,11 @@ class MovieListWidget extends StatelessWidget {
                   children: [
                     AspectRatio(
                       aspectRatio: 260 / 390,
-                      child: posterPath != null
-                          ? Image.network(
-                              ApiClient.imageUrl(imgUrl, posterPath))
-                          : SizedBox.shrink(),
+                      child: movie.posterPath != null
+                          ? Image.network(ImageLoader.imageUrl(
+                              ImageUrl.imgMovieList,
+                              movie.posterPath as String))
+                          : const SizedBox.shrink(),
                     ),
                     const SizedBox(
                       width: 15,
@@ -56,25 +67,25 @@ class MovieListWidget extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          SizedBox(
+                          const SizedBox(
                             height: 20,
                           ),
                           Text(
                             movie.title,
-                            style: TextStyle(fontWeight: FontWeight.bold),
+                            style: const TextStyle(fontWeight: FontWeight.bold),
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 5,
                           ),
                           Text(
-                            model.stringFromDate(movie.releaseDate),
-                            style: TextStyle(color: Colors.grey),
+                            DateConvert.stringFromDate(movie.releaseDate),
+                            style: const TextStyle(color: Colors.grey),
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 20,
                           ),
                           Text(
@@ -85,7 +96,7 @@ class MovieListWidget extends StatelessWidget {
                         ],
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 10,
                     )
                   ],
@@ -103,7 +114,7 @@ class MovieListWidget extends StatelessWidget {
         },
       ),
       Padding(
-        padding: EdgeInsets.all(10),
+        padding: const EdgeInsets.all(10),
         child: TextField(
           onChanged: (text) {
             model.searchMovies(text);
@@ -111,8 +122,8 @@ class MovieListWidget extends StatelessWidget {
           decoration: InputDecoration(
             filled: true,
             fillColor: Colors.white.withAlpha(235),
-            border: OutlineInputBorder(),
-            label: Text('Поиск'),
+            border: const OutlineInputBorder(),
+            label: const Text('Поиск'),
           ),
         ),
       ),

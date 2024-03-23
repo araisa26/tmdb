@@ -1,16 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:themoviedb/library/provider.dart';
-import 'package:themoviedb/ui/my_app/my_app_model.dart';
 import 'package:themoviedb/ui/navigation/main_navigation.dart';
-import 'package:themoviedb/ui/theme/app_colors.dart';
+import 'package:themoviedb/resources/app_colors.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final model = Provider.read<MyAppModel>(context);
     return MaterialApp(
       title: "the movie db",
       theme: ThemeData(
@@ -21,18 +18,18 @@ class MyApp extends StatelessWidget {
           ),
         ),
       ),
-      localizationsDelegates: [
+      localizationsDelegates: const [
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
       ],
-      supportedLocales: [
+      supportedLocales: const [
         Locale('ru', 'RU'),
         Locale('en', 'US'),
       ],
       debugShowCheckedModeBanner: false,
       routes: MainNavigation().routes,
-      initialRoute: MainNavigation().initialRoute(model?.isAuth == true),
+      initialRoute: MainNavigationRoutesName.loaderWidget,
       onGenerateRoute: MainNavigation().onGenerateRoute,
     );
   }
